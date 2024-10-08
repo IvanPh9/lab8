@@ -27,13 +27,8 @@ def add_student_from_input():
         "subjects_grades": subjects_grades
     }
 
-# Створюємо порожній словник для зберігання інформації про студентів
-students_data = {'Іванов Іван': {'group': "КН-39.1", 'course': 2, 'subjects_grades': {'Пайтон': 97, 'ЧМ': 92, 'ММДО': 99}},
-                 'Петрова Софія': {'group': "КН-39.2", 'course': 2, 'subjects_grades': {'Пайтон': 83, 'ЧМ': 72, 'ММДО': 91}},
-                 'Піддубна Марія': {'group': "КН-39.1", 'course': 2, 'subjects_grades': {'Пайтон': 81, 'ЧМ': 98, 'ММДО': 61}},
-                 'Розумний Ігор': {'group': "КН-39.2", 'course': 2, 'subjects_grades': {'Пайтон': 73, 'ЧМ': 67, 'ММДО': 88}},
-                 'Ніжна Ірина': {'group': "КН-39.1", 'course': 2, 'subjects_grades': {'Пайтон': 84, 'ЧМ': 97, 'ММДО': 98}}
-                 }
+
+# Наступний студент: додати функцію видалення по прізвищу та ім'ям, організувати діалог між користувачем та програмою(Рожченко Іван)
 
 # Виводимо інформацію про студентів(Рожченко Іван: зробив з дії функцію)
 def print_students_data():
@@ -49,7 +44,28 @@ def data_remove(key):
     else:
         print("<--Студента/ку не знайдено-->")
 
-# Наступний студент: додати функцію видалення по прізвищу та ім'ям, організувати діалог між користувачем та програмою(Рожченко Іван)
+# Наступний студент: додати функцію обрахунку середнього балу студента за прізвищем, додати відповідну дію до діалогу
+
+# функція обрахунку середнього балу студента за прізвищем (Дяченко Юлія)
+def averadge_grade_of_student(students: dict):
+    student_name = input("Введіть ім'я студента, середній бал якого ви хочете дізнатись: ")
+    if student_name in students:
+        grades_sum = 0
+        grades_amount = 0
+        for key in students[student_name]['subjects_grades'].keys():
+            grades_sum+=students[student_name]['subjects_grades'][key]
+            grades_amount+=1
+        print(f"Середній бал студента '{student_name}':", grades_sum/grades_amount)
+    else:
+        print("Даного студента немає в списку")
+
+# Створюємо порожній словник для зберігання інформації про студентів
+students_data = {'Іванов Іван': {'group': "КН-39.1", 'course': 2, 'subjects_grades': {'Пайтон': 97, 'ЧМ': 92, 'ММДО': 99}},
+                 'Петрова Софія': {'group': "КН-39.2", 'course': 2, 'subjects_grades': {'Пайтон': 83, 'ЧМ': 72, 'ММДО': 91}},
+                 'Піддубна Марія': {'group': "КН-39.1", 'course': 2, 'subjects_grades': {'Пайтон': 81, 'ЧМ': 98, 'ММДО': 61}},
+                 'Розумний Ігор': {'group': "КН-39.2", 'course': 2, 'subjects_grades': {'Пайтон': 73, 'ЧМ': 67, 'ММДО': 88}},
+                 'Ніжна Ірина': {'group': "КН-39.1", 'course': 2, 'subjects_grades': {'Пайтон': 84, 'ЧМ': 97, 'ММДО': 98}}
+                 }
 
 # Діалог з користувачем(Рожченко Іван)
 number = 0
@@ -58,20 +74,22 @@ while True:
         print("\n<1>Вивести список студентів"
             "\n<2>Додати студента/ку"
             "\n<3>Видалити студента/ку"
+            "\n<4>Обрахувати середній бал конкретного студента/студентки"
             "\n<0>Завершити програму")
         number += 1
     answer = int(input("\nВиберіть дію: "))
-    if answer == 0:
-        break;
-    elif answer == 1:
-        print_students_data()
-    elif answer == 2:
-        add_student_from_input()
-    elif answer == 3:
-        student = str(input("Введіть прізвище і ім'я: "))
-        data_remove(student)
-    else:
-        print("Помилка введення")
+    match answer:
+        case 0:
+            break
+        case 1:
+            print_students_data()
+        case 2:
+            add_student_from_input()
+        case 3:
+            student = str(input("Введіть прізвище і ім'я: "))
+            data_remove(student)
+        case 4:
+            averadge_grade_of_student(students_data)
+        case _:
+            print("Помилка введення")
 print("Програму завершено")
-
-# Наступний студент: додати функцію обрахунку середнього балу студента за прізвищем, додати відповідну дію до діалогу
