@@ -69,6 +69,26 @@ def print_sorted_students():
         print(f"{student} (Група {data['group']}, Курс {data['course']}): {data['subjects_grades']}")
 
 
+# Наступний студент: додати функцію пошуку студента з найвищим середнім балом
+# Функція для знаходження студента з найвищим середнім балом (Руденко Дарина)
+def student_with_highest_average():
+    highest_avg = 0
+    top_student = ""
+
+    for student, data in students_data.items():
+        grades = data['subjects_grades'].values()
+        avg_grade = sum(grades) / len(grades)
+
+        if avg_grade > highest_avg:
+            highest_avg = avg_grade
+            top_student = student
+
+    if top_student:
+        print(f"Студент з найвищим середнім балом: {top_student} (Середній бал: {highest_avg:.2f})")
+    else:
+        print("Список студентів порожній. ")
+
+
 # Створюємо порожній словник для зберігання інформації про студентів
 students_data = {'Іванов Іван': {'group': "КН-39.1", 'course': 2, 'subjects_grades': {'Пайтон': 97, 'ЧМ': 92, 'ММДО': 99}},
                  'Петрова Софія': {'group': "КН-39.2", 'course': 2, 'subjects_grades': {'Пайтон': 83, 'ЧМ': 72, 'ММДО': 91}},
@@ -89,6 +109,7 @@ while True:
               "\n<3>Видалити студента/ку"
               "\n<4>Обрахувати середній бал конкретного студента/студентки"
               "\n<5>Вивести студентів за алфавітним порядком"
+              "\n<6>Знайти студента з найвищим середнім балом"
               "\n<0>Завершити програму")
         number += 1
     answer = int(input("\nВиберіть дію: "))
@@ -106,6 +127,8 @@ while True:
             averadge_grade_of_student(students_data)
         case 5:
             print_sorted_students()
+        case 6:
+            student_with_highest_average()
         case _:
             print("Помилка введення")
 print("Програму завершено")
